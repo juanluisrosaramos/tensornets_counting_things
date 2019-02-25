@@ -13,6 +13,8 @@ import time
 from google.cloud import storage
 from PIL import Image
 import sys
+import os
+
 
 
 def copy_images(path):
