@@ -12,6 +12,7 @@ import numpy as np
 import time
 from google.cloud import storage
 from PIL import Image
+import sys
 
 
 def copy_images(path):
