@@ -57,7 +57,7 @@ if __name__ == "__main__":
         #cap = cv2.VideoCapture("G://ani_pers//videoplayback.mp4")
         for image_path in TEST_IMAGE_PATHS:
         #while(cap.isOpened()):
-            frame = Image.open(image_path)
+            frame = cv2.imread(image_path)
             #ret, frame = cap.read()
             img=cv2.resize(frame,(416,416))
             imge=np.array(img).reshape(-1,416,416,3)
@@ -66,17 +66,16 @@ if __name__ == "__main__":
         
             print("--- %s seconds ---" % (time.time() - start_time)) 
             boxes = model.get_boxes(preds, imge.shape[1:3])
-            cv2.namedWindow('image',cv2.WINDOW_NORMAL)
+            #cv2.namedWindow('image',cv2.WINDOW_NORMAL)
 
-            cv2.resizeWindow('image', 700,700)
-            #print("--- %s seconds ---" % (time.time() - start_time)) 
+            #cv2.resizeWindow('image', 700,700)
+            print("--- %s seconds ---" % (time.time() - start_time)) 
             boxes1=np.array(boxes)
             for j in list_of_classes:
                 count =0
                 if str(j) in classes:
                     lab=classes[str(j)]
-                if len(boxes1) !=0:
-                    
+                if len(boxes1) !=0:               
                     
                     for i in range(len(boxes1[j])):
                         box=boxes1[j][i] 
@@ -85,18 +84,21 @@ if __name__ == "__main__":
                             
                                 
                             count += 1    
-    
-                            cv2.rectangle(img,(box[0],box[1]),(box[2],box[3]),(0,255,0),1)
-                            cv2.putText(img, lab, (box[0],box[1]), cv2.FONT_HERSHEY_SIMPLEX, .5, (0, 0, 255), lineType=cv2.LINE_AA)
+                            print ('box[0]',box[0])
+                            print ('box[1]',box[1])
+                            print ('box[2]',box[2])
+                            print ('box[3]',box[3])
+                            #cv2.rectangle(img,(box[0],box[1]),(box[2],box[3]),(0,255,0),1)
+                            #cv2.putText(img, lab, (box[0],box[1]), cv2.FONT_HERSHEY_SIMPLEX, .5, (0, 0, 255), lineType=cv2.LINE_AA)
                 print(lab,": ",count)
         
                 
-            cv2.imshow("image",img)  
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                break          
+            #cv2.imshow("image",img)  
+            #if cv2.waitKey(1) & 0xFF == ord('q'):
+            #    break          
 
 
 
 
-    cap.release()
-    cv2.destroyAllWindows()    
+    #cap.release()
+    #cv2.destroyAllWindows()    
